@@ -1172,4 +1172,15 @@ window.artikulPartitionQA={changedLayers:changed,length:1.9,passageNorth:1.08034
 for(const o of G.children){if(o.userData.room!=='08')continue;const s=updates[o.name];if(s){o.geometry=new THREE.BoxGeometry(s.w,s.h,s.d);o.position.set(s.x,s.z,-s.y);}else if(o.name==='Душ стойка'){o.position.x=7.535;o.position.z=-1.16;}}
 window.artikulBathQA={showerWidth:.938,showerDepth:1.513,glassLength:.9,entrance:.613,status:'Primary plan dimensions; fitted to existing finished IFC walls, not construction approval'};
 })();
-</script></body></html>
+</script><script>// Correct full bathroom extent: right finished wall 8.9713; 8.0213 was a segment join, not room boundary.
+(()=>{const G=window.furnishingGroup;const toilet=new Set(['Основание унитаза','Чаша унитаза','Отверстие чаши','Бачок']);const basin=new Set(['Тумба раковины','Столешница раковины','Раковина бортик','Чаша раковины','Смеситель']);
+for(const o of G.children){if(o.userData.room!=='08')continue;
+if(o.name.startsWith('Душ '))o.position.x+=.955;
+if(toilet.has(o.name)){o.position.x+=.21;o.position.z+=.23;}
+if(basin.has(o.name)){o.position.x+=.521;o.position.z+=.15;}
+if(o.name==='Тумба раковины'){o.geometry=new THREE.BoxGeometry(.98,.70,.43);o.position.z=-.965;}
+if(o.name==='Столешница раковины'){o.geometry=new THREE.BoxGeometry(1,.06,.45);o.position.z=-.965;}
+}
+window.artikulBathQA={internalWidth:2.87,showerWidth:.938,showerDepth:1.513,glassLength:.9,entrance:.613,vanityWidth:1,status:'Full IFC room extent verified across adjoining wall layers; all walls unchanged. Fixture layout follows primary selected drawing, service connections require project verification.'};
+})();
+</script><script>(()=>{const G=window.furnishingGroup;let n=0;for(const o of [...G.children])if(o.userData.room==='16'&&['Корпус хранения','Фасад хранения','Ручка'].includes(o.name)){G.remove(o);n++;}window.artikulPantryQA={removed:n,status:'Erroneous closed cabinet removed at owner request; fitted storage pending source drawing'};})();</script></body></html>
