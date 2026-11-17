@@ -1183,4 +1183,47 @@ if(o.name==='Столешница раковины'){o.geometry=new THREE.BoxGeo
 }
 window.artikulBathQA={internalWidth:2.87,showerWidth:.938,showerDepth:1.513,glassLength:.9,entrance:.613,vanityWidth:1,status:'Full IFC room extent verified across adjoining wall layers; all walls unchanged. Fixture layout follows primary selected drawing, service connections require project verification.'};
 })();
-</script><script>(()=>{const G=window.furnishingGroup;let n=0;for(const o of [...G.children])if(o.userData.room==='16'&&['Корпус хранения','Фасад хранения','Ручка'].includes(o.name)){G.remove(o);n++;}window.artikulPantryQA={removed:n,status:'Erroneous closed cabinet removed at owner request; fitted storage pending source drawing'};})();</script></body></html>
+</script><script>(()=>{const G=window.furnishingGroup;let n=0;for(const o of [...G.children])if(o.userData.room==='16'&&['Корпус хранения','Фасад хранения','Ручка'].includes(o.name)){G.remove(o);n++;}window.artikulPantryQA={removed:n,status:'Erroneous closed cabinet removed at owner request; fitted storage pending source drawing'};})();</script><script>// Primary owner drawings 15 Oct: e7c69 central bathroom, 41e0 pantry. Existing walls unchanged.
+(()=>{const G=window.furnishingGroup;for(const o of [...G.children])if(['15','16'].includes(o.userData.room))G.remove(o);
+const mats={wood:new THREE.MeshStandardMaterial({color:0xa58b66,roughness:.7}),white:new THREE.MeshStandardMaterial({color:0xeeeeea,roughness:.28}),stone:new THREE.MeshStandardMaterial({color:0xaaa79e,roughness:.7}),dark:new THREE.MeshStandardMaterial({color:0x4b4c49,roughness:.45}),metal:new THREE.MeshStandardMaterial({color:0x92938f,metalness:.7,roughness:.3}),glass:new THREE.MeshStandardMaterial({color:0x9dadb0,transparent:true,opacity:.2,roughness:.15,side:THREE.DoubleSide})};
+const box=(name,x,y,z,w,d,h,mat,room,r=.01)=>{const o=new THREE.Mesh(roundedBox(w,h,d,r),mats[mat]);o.name=name;o.position.set(x,z,-y);o.userData.room=room;G.add(o);return o;};
+const bar=(name,a,b,r,mat,room)=>{const A=new THREE.Vector3(a[0],a[2],-a[1]),B=new THREE.Vector3(b[0],b[2],-b[1]),v=B.clone().sub(A),o=new THREE.Mesh(new THREE.CylinderGeometry(r,r,v.length(),16),mats[mat]);o.position.copy(A).add(B).multiplyScalar(.5);o.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),v.normalize());o.name=name;o.userData.room=room;G.add(o);};
+// Width 1890 measured in IFC, 1892 dimensioned on authored plan.
+box('Столешница СУ15 во всю стену',6.446,7.495,.84,1.89,.45,.055,'wood','15');
+box('Раковина800 СУ15',6.021,7.48,.90,.80,.40,.12,'white','15',.10);
+box('Чаша раковины СУ15',6.021,7.47,.963,.68,.29,.015,'stone','15',.08);
+bar('Смеситель СУ15',[6.021,7.66,.86],[6.021,7.66,1.12],.018,'metal','15');bar('Излив СУ15',[6.021,7.66,1.12],[6.021,7.50,1.12],.014,'metal','15');
+box('Подвесной унитаз СУ15 правая стена',7.11,6.845,.38,.54,.38,.25,'white','15',.14);
+box('Сиденье унитаза СУ15',7.105,6.845,.515,.55,.39,.035,'white','15',.15);
+box('Углубление чаши СУ15',7.07,6.845,.536,.34,.25,.01,'stone','15',.10);
+box('Кнопка инсталляции СУ15',7.378,6.845,1.0,.018,.23,.15,'metal','15');
+box('Душ СУ15 глубина900',6.446,5.960,.025,1.89,.9,.05,'stone','15');
+box('Стекло СУ15 1100',6.841,6.410,1.0,1.10,.015,1.95,'glass','15');
+box('Трап СУ15 800',7.33,5.96,.057,.045,.8,.01,'dark','15');
+bar('Стойка душа СУ15',[7.36,5.96,.7],[7.36,5.96,2.12],.016,'metal','15');bar('Держатель лейки СУ15',[7.36,5.96,2.12],[7.06,5.96,2.12],.016,'metal','15');
+const head=new THREE.Mesh(new THREE.CylinderGeometry(.13,.13,.025,32),mats.metal);head.name='Лейка СУ15';head.position.set(7.06,2.10,-5.96);head.userData.room='15';G.add(head);
+for(const y of [5.72,6.30])bar('Полотенцесушитель стойка СУ15',[5.59,y,.42],[5.59,y,1.25],.012,'metal','15');for(const z of [.48,.62,.76,.90,1.04,1.18])bar('Полотенцесушитель перекладина СУ15',[5.59,5.72,z],[5.59,6.30,z],.009,'metal','15');
+// Open L shelves:400 deep,880 clear aisle, as drawn. No full-height cabinet shell.
+for(const z of [.15,.59,1.03,1.47,1.91]){box('Кладовая открытая полка слева400',7.891,6.615,z,.4,2.187,.035,'wood','16');box('Кладовая открытая полка торец400',8.531,7.520,z,.88,.4,.035,'wood','16');}
+for(const x of [7.711,8.071])for(const y of [5.55,6.61,7.68])box('Кладовая тонкая стойка',x,y,1.03,.025,.025,1.98,'metal','16');for(const x of [8.5,8.94])for(const y of [7.34,7.68])box('Кладовая тонкая стойка',x,y,1.03,.025,.025,1.98,'metal','16');
+window.artikulServiceQA={bath:{width:1.89,depth:2.21,counter:1.89,basin:.8,showerDepth:.9,glass:1.1,clearEntry:.79},pantry:{width:1.28,depth:2.21,shelves:.4,aisle:.88},source:'Owner drawings 15 Oct, not final engineering approval',masterBathroomUnchanged:true};
+})();
+</script><script>// Laundry primary drawing ceb791: internal1800x2200, three600 modules. Machine models not chosen.
+(()=>{const G=window.furnishingGroup;for(const o of [...G.children])if(o.userData.room==='07')G.remove(o);
+const white=new THREE.MeshStandardMaterial({color:0xe9e9e3,roughness:.45}),oak=new THREE.MeshStandardMaterial({color:0xa58b66,roughness:.7}),dark=new THREE.MeshStandardMaterial({color:0x34424a,roughness:.25}),steel=new THREE.MeshStandardMaterial({color:0x919795,roughness:.3,metalness:.65});
+const B=(name,x,y,z,w,d,h,mat,r=.01)=>{const o=new THREE.Mesh(roundedBox(w,h,d,r),mat);o.name=name;o.position.set(x,z,-y);o.userData.room='07';G.add(o);return o;};
+B('Раковина постирочной модуль600',6.386,1.82,.43,.58,.60,.82,oak);
+B('Столешница раковины постирочной',6.386,1.82,.86,.60,.62,.045,oak);
+B('Раковина постирочной',6.386,1.82,.91,.48,.43,.12,white,.10);B('Чаша постирочной',6.386,1.81,.973,.38,.33,.015,dark,.08);
+B('Смеситель постирочной',6.386,1.58,1.01,.035,.035,.29,steel);B('Излив постирочной',6.386,1.65,1.15,.035,.17,.025,steel);
+// Appliance envelope:600 module, reference only pending actual model.
+B('СМ с сушкой модуль600 условная техника',6.986,1.82,.44,.58,.60,.86,white,.02);
+B('Панель техники постирочной',6.986,2.126,.75,.51,.018,.11,steel);
+const hatch=new THREE.Mesh(new THREE.CylinderGeometry(.195,.195,.035,40),dark);hatch.rotation.x=Math.PI/2;hatch.position.set(6.986,.43,-2.14);hatch.name='Люк стиральной машины';hatch.userData.room='07';G.add(hatch);
+B('Сушильный шкаф модуль600 условная высота',7.586,1.82,1.0,.58,.60,1.96,white);
+for(const x of [7.44,7.73])B('Фасад сушильного шкафа',x,2.131,1.0,.282,.02,1.90,white);
+B('Ручка сушильного шкафа',7.576,2.155,1.12,.012,.025,.30,steel);
+B('Откидная гладильная доска сложена',6.115,2.75,1.05,.04,1.10,.35,white,.10);
+window.artikulLaundryQA={width:1.8,depth:2.2,modules:[.6,.6,.6],source:'ceb791/master-4 primary drawing',machineConfiguration:'Illustrative envelope; combined vs stacked machine not yet established',doorUnchanged:true};
+})();
+</script></body></html>
