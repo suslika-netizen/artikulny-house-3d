@@ -1226,4 +1226,13 @@ B('Ручка сушильного шкафа',7.576,2.155,1.12,.012,.025,.30,st
 B('Откидная гладильная доска сложена',6.115,2.75,1.05,.04,1.10,.35,white,.10);
 window.artikulLaundryQA={width:1.8,depth:2.2,modules:[.6,.6,.6],source:'ceb791/master-4 primary drawing',machineConfiguration:'Illustrative envelope; combined vs stacked machine not yet established',doorUnchanged:true};
 })();
+</script><script>// Primary client message16Oct: beige kitchen, wood worktop, brass handles. Placement from9Nov retained.
+(()=>{const G=window.furnishingGroup;let fronts=0,tops=0;
+const c=document.createElement('canvas');c.width=256;c.height=256;const t=c.getContext('2d');t.fillStyle='#a98d6c';t.fillRect(0,0,256,256);for(let i=0;i<60;i++){const y=i*4.31;t.strokeStyle=i%3?'rgba(89,65,42,.12)':'rgba(237,219,186,.16)';t.lineWidth=.6;t.beginPath();t.moveTo(0,y);t.bezierCurveTo(80,y+3,160,y-2,256,y+1);t.stroke();}const tex=new THREE.CanvasTexture(c);tex.wrapS=tex.wrapT=THREE.RepeatWrapping;tex.repeat.set(2,1);
+for(const o of G.children){if(o.userData.room!=='04'||!o.material)continue;const y=-o.position.z;
+if((['Корпус хранения','Фасад хранения','Фасад'].includes(o.name)&&y<5&&o.position.x>11.9)||o.name==='Колонна духовка СВЧ'){o.material=o.material.clone();o.material.color.set('#c9c0ad');fronts++;}
+if(['Столешница кухня последняя схема','Столешница левая ветвь','Чайно-кофейный остров без мойки'].includes(o.name)){o.material=o.material.clone();o.material.color.set('#ffffff');o.material.map=tex;o.material.roughness=.6;tops++;}
+}
+window.artikulKitchenFinishQA={fronts,tops,source:'Primary client choice16Oct: beige kitchen and wood countertop; placement retained9Nov; appliance model unresolved'};
+})();
 </script></body></html>
